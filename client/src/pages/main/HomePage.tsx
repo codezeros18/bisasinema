@@ -8,6 +8,7 @@ import ClassShowcase from '../../components/ClassShowcase';
 import MediaContentShowcase from '../../components/MediaContentShowcase';
 import MediaContentBar from '../../components/MediaContentBar';
 import BrandsShowcase from '../../components/BrandsShowcase';
+import BisasinemaShowcase from '../../components/BisasinemaShowcase';
 import type { Work } from '../../types';
 
 const HomePage = () => {
@@ -31,7 +32,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <div className='bg-black'>
       {/* Bagian Hero Section */}
       <LandingPage />
 
@@ -70,6 +71,7 @@ const HomePage = () => {
       </section> */}
 
       {/* Panggil komponen carousel di sini */}
+      <BisasinemaShowcase />
       <WorksBar />
       <WorksCarousel />
       <ClassBar />

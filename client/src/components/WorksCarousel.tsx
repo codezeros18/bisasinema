@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 const works1 = "https://i.ibb.co.com/FbdXnzc4/DSCF8479.webp";
 const works2 = "https://i.ibb.co.com/gbV5x0m0/DSCF0706.webp";
 const works3 = "https://i.ibb.co.com/0RTQMRtf/DSCF2910.webp";
-const works4 = "https://ibb.co.com/tw3zHpJM";
+const works4 = "https://i.ibb.co.com/7N6fzKYT/20250424-IMG-7814.webp";
 const works5 = "https://i.ibb.co.com/gMcLJddc/DSCF8542.webp";
 const works6 = "https://i.ibb.co.com/fYXR3VDB/DSCF0664.webp";
 const works7 = "https://i.ibb.co.com/Ngh2L158/DSCF2958.webp";
@@ -76,7 +76,7 @@ const WorksCarousel = () => {
 
   return (
     <div
-      className="w-full bg-black py-8 overflow-hidden cursor-grab select-none"
+      className="w-full py-8 overflow-hidden cursor-grab select-none"
       onWheel={handleWheel}
     >
       <div ref={marqueeRef} className="flex will-change-transform">
