@@ -1,79 +1,74 @@
-// const WorksPage = () => {
-//   return (
-//     <div>WorksPage</div>
-//   )
-// }
-
-// export default WorksPage
-
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const WorksPage: React.FC = () => {
   const works = [
     {
       title: "Bahari On Screen",
-      category: "Web Design",
-      image: "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7",
+      category: "Short Film Competition & Festival",
+      image: "https://i.ibb.co.com/cKS42FXQ/DSCF2861.webp",
+      slug: "bahari-on-screen",
     },
     {
       title: "Doss Guava XR",
-      category: "Web Design",
-      image: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c",
+      category: "XR & Interactive Experience",
+      image: "https://i.ibb.co.com/99qwvwG7/DSCF0565.webp",
+      slug: "doss-guava-xr",
     },
     {
       title: "SAE Workshop 2025",
-      category: "Web Design",
-      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b",
+      category: "Workshop & Training",
+      image: "https://i.ibb.co.com/PZMKwQfP/DSCF8469.webp",
+      slug: "sae-workshop-2025",
     },
     {
       title: "UMN Cinematography Lab",
-      category: "Branding",
-      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+      category: "Practical Lab & Creative Experimentation",
+      image: "https://i.ibb.co.com/q3gMTf6Y/20250424-VS-2273.webp",
+      slug: "umn-cinematography-lab",
     },
     {
-      title: "Workshop UMN 2025",
-      category: "Platform Design",
-      image: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb",
+      title: "UMN Workshop 2025",
+      category: "Workshop & Training",
+      image: "https://i.ibb.co.com/LDWfY30v/20250423-IMG-7482.webp",
+      slug: "workshop-umn-2025",
     },
     {
       title: "Content and Media Portfolio",
-      category: "Web Design",
-      image: "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7",
+      category: "The things that bisasinema has made",
+      image: "https://i.ibb.co.com/bMsxhXCp/4.webp",
+      slug: "content-and-media-portfolio",
     },
   ];
 
   const sliderGroups = [
     [
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7",
-      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2",
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+      "https://i.ibb.co.com/CshRXrRx/DSCF3167.webp",
+      "https://i.ibb.co.com/ch2swK05/DSCF2645.webp",
+      "https://i.ibb.co.com/2YMvzMKR/20250425-CPC02305.webp",
     ],
     [
-      "https://images.unsplash.com/photo-1506765515384-028b60a970df",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      "https://images.unsplash.com/photo-1515165562835-c7e66ec0d7f0",
+      "https://i.ibb.co.com/VptL0vnV/DSCF0669.webp",
+      "https://i.ibb.co.com/xS6vFWTv/DSCF2710.webp",
+      "https://i.ibb.co.com/ymgDfHp7/DSCF8541.webp",
     ],
     [
-      "https://images.unsplash.com/photo-1542744173-05336fcc7ad4",
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
-      "https://images.unsplash.com/photo-1543269865-cbf427effbad",
+      "https://i.ibb.co.com/TMpG1kZx/DSCF3145.webp",
+      "https://i.ibb.co.com/C3QWMqWQ/DSCF8466.webp",
+      "https://i.ibb.co.com/zjYtdmw/DSCF0562.webp",
     ],
   ];
 
   const [currentIndexes, setCurrentIndexes] = useState([0, 0, 0]);
 
   useEffect(() => {
-    const timers = sliderGroups.map((group, idx) =>
-      setInterval(() => {
-        setCurrentIndexes((prev) => {
-          const updated = [...prev];
-          updated[idx] = (prev[idx] + 1) % group.length;
-          return updated;
-        });
-      }, 4000)
-    );
-    return () => timers.forEach((timer) => clearInterval(timer));
-  }, [sliderGroups]);
+    const timer = setInterval(() => {
+      setCurrentIndexes((prev) =>
+        prev.map((curr, idx) => (curr + 1) % sliderGroups[idx].length)
+      );
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <>
@@ -92,9 +87,9 @@ const WorksPage: React.FC = () => {
       {/* === Works Grid Section === */}
       <section className="bg-black py-8 px-6 md:px-10 border-t border-gray-800">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1600px] mx-auto">
-          {works.map((work, index) => (
+          {works.map((work) => (
             <div
-              key={index}
+              key={work.title}
               className="relative group h-[400px] sm:h-[450px] lg:h-[500px] w-full overflow-hidden cursor-pointer transform transition duration-500 hover:scale-[1.02]"
             >
               <img
@@ -110,9 +105,12 @@ const WorksPage: React.FC = () => {
                   {work.title}
                 </h2>
               </div>
-              <button className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-1.5 rounded-full backdrop-blur-md hover:bg-white hover:text-black transition">
+              <Link
+                to={`/works/${work.slug}`}
+                className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-1.5 rounded-full backdrop-blur-md hover:bg-white hover:text-black transition"
+              >
                 ↗ Expand
-              </button>
+              </Link>
             </div>
           ))}
         </div>
@@ -160,7 +158,7 @@ const WorksPage: React.FC = () => {
               <div className="relative w-full h-[300px] sm:h-[350px] md:h-[400px] overflow-hidden rounded-none">
                 {sliderGroups[i].map((img, idx) => (
                   <img
-                    key={idx}
+                    key={img}
                     src={img}
                     alt={`${title}-slide-${idx}`}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
@@ -179,10 +177,3 @@ const WorksPage: React.FC = () => {
 };
 
 export default WorksPage;
-
-
-
-
-
-
-
