@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 
 // import assets
-import works1 from "../assets/dossguavaxr/DSCF0578.jpg";
-import works2 from "../assets/sae/20250424-DSC08625.jpg";
-import works3 from "../assets/bahari/DSCF2871.jpg";
-import works4 from "../assets/umncinema/20250425-_VS_0247.jpg";
-import works5 from "../assets/anniversary/DSCF4763.jpg";
+const works1 = "https://i.ibb.co.com/F1N3qLv/DSCF0578.webp";
+const works2 = "https://i.ibb.co.com/xq7tnX4p/DSCF8484.webp";
+const works3 = "https://i.ibb.co.com/vCfrhpf3/DSCF2871.webp";
+const works4 = "https://i.ibb.co.com/gbF0bSrw/20250424-DSC08625.webp";
+const works5 = "https://i.ibb.co.com/Sh1DngP/DSCF4763.webp";
 
 const movies = [
   { title: "Doss Guava XR", img: works1, year: "2025" },

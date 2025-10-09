@@ -120,7 +120,7 @@ const Navbar = () => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.aside
-                        className="fixed top-0 left-0 h-full w-full md:w-1/3 bg-black z-50 p-8 overflow-y-auto"
+                        className="fixed top-0 left-0 h-full w-full md:w-1/3 bg-black/95 z-50 p-8 overflow-y-auto"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

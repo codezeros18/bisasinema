@@ -5,6 +5,9 @@ import WorksCarousel from '../../components/WorksCarousel'; // <-- Impor carouse
 import WorksBar from '../../components/WorksBar';
 import ClassBar from '../../components/ClassBar';
 import ClassShowcase from '../../components/ClassShowcase';
+import MediaContentShowcase from '../../components/MediaContentShowcase';
+import MediaContentBar from '../../components/MediaContentBar';
+import BrandsShowcase from '../../components/BrandsShowcase';
 import type { Work } from '../../types';
 
 const HomePage = () => {
@@ -71,6 +74,9 @@ const HomePage = () => {
       <WorksCarousel />
       <ClassBar />
       <ClassShowcase />
+      <MediaContentBar />
+      <MediaContentShowcase />
+      <BrandsShowcase />
     </div>
   );
 };

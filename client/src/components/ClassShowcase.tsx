@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Calendar, Laptop } from "lucide-react";
-import works1 from "../assets/dossguavaxr/DSCF0578.jpg";
-import works2 from "../assets/sae/20250424-DSC08625.jpg";
+const works1 = "https://i.ibb.co.com/XZktpkt1/20250423-IMG-7491.webp";
+const works2 = "https://i.ibb.co.com/NdNfPhZZ/20250424-DSC01568.webp";
 
 const classes = [
   {

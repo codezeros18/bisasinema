@@ -1,12 +1,15 @@
 import { useRef, useEffect } from "react";
 
-import works1 from "../assets/dossguavaxr/DSCF0578.jpg";
-import works2 from "../assets/sae/20250424-DSC08625.jpg";
-import works3 from "../assets/bahari/DSCF2871.jpg";
-import works4 from "../assets/umncinema/20250425-_VS_0247.jpg";
-import works5 from "../assets/anniversary/DSCF4763.jpg";
+const works1 = "https://i.ibb.co.com/FbdXnzc4/DSCF8479.webp";
+const works2 = "https://i.ibb.co.com/gbV5x0m0/DSCF0706.webp";
+const works3 = "https://i.ibb.co.com/0RTQMRtf/DSCF2910.webp";
+const works4 = "https://ibb.co.com/tw3zHpJM";
+const works5 = "https://i.ibb.co.com/gMcLJddc/DSCF8542.webp";
+const works6 = "https://i.ibb.co.com/fYXR3VDB/DSCF0664.webp";
+const works7 = "https://i.ibb.co.com/Ngh2L158/DSCF2958.webp";
+const works8 = "https://i.ibb.co.com/60CRNpDS/20250424-DSC01559.webp";
 
-const images = [works1, works2, works3, works4, works5];
+const images = [works1, works2, works3, works4, works5, works6, works7, works8];
 
 const WorksCarousel = () => {
   const marqueeRef = useRef<HTMLDivElement>(null);
