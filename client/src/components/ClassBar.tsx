@@ -17,7 +17,7 @@ export default function ClassBar() {
           font-extrabold uppercase
           max-w-[90%] sm:max-w-[750px] lg:max-w-[900px]
         ">
-          DESIGNED FOR CREATORS WHO NEVER STOP LEARNING.
+          BEYOND THE CLASSROOM WHO NEVER STOP LEARNING.
         </h1>
       </div>
 

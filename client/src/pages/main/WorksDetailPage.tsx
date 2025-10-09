@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import WorkDetailLayout from "../../components/WorkDetailLayout";
-import bahariImg from "../../assets/bahari/DSCF2871.jpg";
-import dossImg from "../../assets/dossguavaxr/DSCF0578.jpg";
+const bahariImg = "https://i.ibb.co.com/F1N3qLv/DSCF0578.webp";
+const dossImg = "https://i.ibb.co.com/F1N3qLv/DSCF0578.webp";
 
 const works = [
   {
