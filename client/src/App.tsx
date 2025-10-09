@@ -14,6 +14,7 @@ import ProfilePage from './pages/main/ProfilePage';
 import CommunityPage from './pages/main/CommunityPage';
 
 // --- WorksDetailPages (6 Halaman Works) ---
+import WorksDetailPage from "./pages/main/WorksDetailPage";
 
 // --- Auth Pages (Halaman Otentikasi) ---
 import LoginPage from './pages/auth/LoginPage';
@@ -38,6 +39,7 @@ function App() {
         <Route path="/classes" element={<ClassesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/community" element={<CommunityPage />} />
+        <Route path="/works/:slug" element={<WorksDetailPage />} />
       </Route>
 
       {/* --- Rute Admin dengan Sidebar & Header --- */}
