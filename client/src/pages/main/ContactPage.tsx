@@ -79,8 +79,8 @@ const ContactPage: React.FC = () => {
           </p>
 
           <div className="space-y-6 pt-6 ">
-            <h2 className="text-xl font-semibold text-cyan-400"
-            style={{ textShadow: '0 0 10px rgba(255, 191, 0, 1)' }}>Official Contact</h2>
+            <h2 className="text-xl font-semibold text-white-400"
+            style={{ textShadow: '0 0 10px rgba(255, 255, 255, 1)' }}>Official Contact</h2>
 
             <a
               href="mailto:official@bisasinema.com"
@@ -124,7 +124,7 @@ const ContactPage: React.FC = () => {
         </div>
 
         {/* Kolom kanan: Form */}
-       <div className="w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-8">
+       <div className="w-full max-w-md bg-white/10 backdrop-blur-xl  shadow-xl border border-white/20 p-8">
 
           <h2 className="text-2xl font-bold text-white-400 mb-6"
           style={{ textShadow: '0 0 10px rgba(240, 239, 235, 1)' }}>Kirim Pesan</h2>
