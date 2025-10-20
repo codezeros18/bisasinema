@@ -1,5 +1,5 @@
 import express from 'express';
-import cors, { CorsOptions } from 'cors';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import { checkDbConnection } from './config/database';
 
@@ -14,53 +14,48 @@ import { errorHandler } from './middleware/errorMiddleware';
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// ---- LOG ALLOWED ORIGINS ----
+// ✅ Daftar origin yang diizinkan
 const allowedOrigins = [
-  process.env.CORS_ORIGIN,
-  'http://localhost:5173',
+  process.env.CORS_ORIGIN, // contoh: https://bisasinema.vercel.app
+  'http://localhost:5173', // untuk development
 ];
-console.log('✅ Allowed origins:', allowedOrigins);
 
-const corsOptions: CorsOptions = {
-  origin: (origin, callback) => {
-    if (!origin) {
-      callback(null, true);
-      return;
+// ✅ Log biar kelihatan di Railway
+console.log('✅ Allowed Origins:', allowedOrigins);
+
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (arg0: Error | null, arg1: boolean | undefined) => any) => {
+    if (!origin) return callback(null, true); // untuk Postman / server to server
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
     }
-    if (allowedOrigins.some(url => typeof url === 'string' && origin.startsWith(url))) {
-      callback(null, true);
-    } else {
-      console.log(`❌ Blocked by CORS: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    }
+    console.log(`❌ Blocked by CORS: ${origin}`);
+    return callback(new Error('Not allowed by CORS'), false);
   },
-  credentials: true, // optional (aktifkan jika pakai cookie / token)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 };
 
-// ✅ Tambahkan ini untuk handle preflight
+// ✅ Tambahkan handler OPTIONS secara eksplisit sebelum route
 app.options('*', cors(corsOptions));
-
-// ✅ Middleware utama
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Endpoint health check
+// ✅ Health Check
 app.get('/health', async (req, res) => {
   const isDbOk = await checkDbConnection();
-  if (isDbOk) {
-    res.status(200).json({ status: 'ok', database: 'connected' });
-  } else {
-    res.status(503).json({ status: 'error', database: 'disconnected' });
-  }
+  if (isDbOk) res.status(200).json({ status: 'ok', database: 'connected' });
+  else res.status(503).json({ status: 'error', database: 'disconnected' });
 });
 
-// Routes
+// ✅ Routes
 app.use('/api/users', userRoutes);
 app.use('/api/works', worksRoutes);
 app.use('/api/classes', classesRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-// Error Handler
+// ✅ Error Handler
 app.use(errorHandler);
 
 app.listen(PORT, () => {
