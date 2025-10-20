@@ -4,8 +4,8 @@ import {
     createClass,
     updateClass,
     deleteClass
-} from '../controllers/classesController';
-import { protect, admin } from '../middleware/authMiddleware';
+} from '../controllers/classesController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = Router();
 

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import db from '../config/database';
+import db from '../config/database.js';
 import dotenv from 'dotenv';
-
+    
 // Panggil dotenv.config() di sini juga untuk memastikan variabel lingkungan tersedia
 dotenv.config();
 

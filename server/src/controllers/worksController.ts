@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../config/database';
+import db from '../config/database.js';
 
 // --- GET ALL WORKS (READ) ---
 // Fungsi ini bersifat publik, tidak perlu login untuk melihat karya.

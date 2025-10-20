@@ -4,8 +4,8 @@ import {
     createWork,
     updateWork,
     deleteWork
-} from '../controllers/worksController';
-import { protect, admin } from '../middleware/authMiddleware';
+} from '../controllers/worksController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = Router();
 

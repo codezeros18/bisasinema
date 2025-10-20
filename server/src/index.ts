@@ -1,12 +1,12 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { checkDbConnection } from "./config/database";
-import userRoutes from "./routes/userRoutes";
-import worksRoutes from "./routes/worksRoutes";
-import classesRoutes from "./routes/classesRoutes";
-import dashboardRoutes from "./routes/dashboardRoutes";
-import { errorHandler } from "./middleware/errorMiddleware";
+import { checkDbConnection } from "./config/database.js";
+import userRoutes from "./routes/userRoutes.js";
+import worksRoutes from "./routes/worksRoutes.js";
+import classesRoutes from "./routes/classesRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
+import { errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
 

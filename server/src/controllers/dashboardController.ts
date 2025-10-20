@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../config/database';
+import db from '../config/database.js';
 
 // Fungsi untuk mengambil statistik ringkas untuk dashboard admin
 export const getDashboardStats = async (req: Request, res: Response) => {
