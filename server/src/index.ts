@@ -16,13 +16,16 @@ import { errorHandler } from './middleware/errorMiddleware';
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Konfigurasi CORS (tidak berubah)
+// Konfigurasi CORS untuk Vercel & Lokal
 const allowedOrigins = [
-  process.env.CORS_ORIGIN,
-  'http://localhost:5173',
+  process.env.CORS_ORIGIN, // URL dari Vercel akan masuk di sini
+  'http://localhost:5173',   // URL untuk development di komputer Anda
 ];
+
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
+    // Izinkan jika origin (sumber permintaan) ada di dalam daftar,
+    // atau jika origin tidak ada (misalnya saat testing dengan Postman/Thunder Client)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -34,12 +37,13 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Endpoint Health Check (tidak berubah)
+// Endpoint Health Check yang benar, memeriksa koneksi database
 app.get('/health', async (req, res) => {
     const isDbOk = await checkDbConnection();
     if (isDbOk) {
         res.status(200).json({ status: 'ok', database: 'connected' });
     } else {
+        // Beri status 503 Service Unavailable jika database tidak terhubung
         res.status(503).json({ status: 'error', database: 'disconnected' });
     }
 });
@@ -50,7 +54,7 @@ app.use('/api/works', worksRoutes);
 app.use('/api/classes', classesRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-// Error Handler (tidak berubah)
+// Error Handler (wajib diletakkan setelah semua rute)
 app.use(errorHandler);
 
 app.listen(PORT, () => {
