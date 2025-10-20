@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import cors, { CorsOptions } from "cors";
+import cors from "cors";
 import dotenv from "dotenv";
 import { checkDbConnection } from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -18,21 +18,18 @@ const PORT = process.env.PORT || 8080;
 // ✅ Allowed origins untuk CORS
 const allowedOrigins = [
   "https://bisasinema.vercel.app",
-  "http://localhost:5173", // untuk development
+  "http://localhost:5173", // untuk development lokal
 ];
 
-// ✅ Konfigurasi CORS aman untuk TypeScript
-const corsOptions: CorsOptions = {
-  origin: (origin: string | undefined, callback) => {
-    console.log("🌍 Incoming Origin:", origin);
-    if (!origin) return callback(null, true); // Izinkan Postman / server-side fetch
+const corsOptions: cors.CorsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // Izinkan Postman, Railway ping, dsb
 
     const isAllowed = allowedOrigins.some((allowed) =>
       origin.startsWith(allowed)
     );
 
     if (isAllowed) {
-      console.log(`✅ Allowed by CORS: ${origin}`);
       callback(null, true);
     } else {
       console.log(`❌ Blocked by CORS: ${origin}`);
@@ -44,18 +41,30 @@ const corsOptions: CorsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-// ✅ Middleware harus di atas semua routes
+// ✅ Apply middleware
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // ⚡ penting untuk preflight OPTIONS
 app.use(express.json());
+
+// ✅ Tangani preflight OPTIONS secara manual (fix untuk Express v5)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 // ✅ Health check endpoint
 app.get("/health", async (req: Request, res: Response) => {
   const isDbOk = await checkDbConnection();
-  res.status(isDbOk ? 200 : 503).json({
-    status: isDbOk ? "ok" : "error",
-    database: isDbOk ? "connected" : "disconnected",
-  });
+  if (isDbOk) {
+    res.status(200).json({ status: "ok", database: "connected" });
+  } else {
+    res.status(503).json({ status: "error", database: "disconnected" });
+  }
 });
 
 // ✅ Routes
@@ -64,16 +73,16 @@ app.use("/api/works", worksRoutes);
 app.use("/api/classes", classesRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
-// ✅ Error handler middleware
+// ✅ Error handler middleware (custom)
 app.use(errorHandler);
 
-// ✅ Global error logging (untuk debugging Railway)
+// ✅ Global error logging (Railway debugging)
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error("Unhandled Error:", err.message);
+  console.error("🔥 Unhandled Error:", err.message);
   res.status(500).json({ message: "Internal Server Error" });
 });
 
-// ✅ Jalankan server
+// ✅ Jalankan server (Railway pakai PORT dari env)
 app.listen(PORT, () => {
   console.log(`🚀 Server berjalan di port ${PORT}`);
 });
