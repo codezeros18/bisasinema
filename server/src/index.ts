@@ -3,10 +3,8 @@ import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import { checkDbConnection } from './config/database';
 
-// Panggil dotenv.config() di paling atas untuk memuat .env di lokal
 dotenv.config();
 
-// Impor semua file rute Anda
 import userRoutes from './routes/userRoutes';
 import worksRoutes from './routes/worksRoutes';
 import classesRoutes from './routes/classesRoutes';
@@ -16,48 +14,60 @@ import { errorHandler } from './middleware/errorMiddleware';
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Konfigurasi CORS untuk Vercel & Lokal
+// ==========================================================
+// --- FINAL CORS DEBUGGING ---
+// ==========================================================
+
+// 1. Kita cetak nilai CORS_ORIGIN yang dibaca oleh server saat dimulai
+console.log('--- MEMBACA VARIABEL CORS ---');
+console.log('CORS_ORIGIN DARI ENV:', process.env.CORS_ORIGIN);
+console.log('------------------------------------');
+
 const allowedOrigins = [
-  process.env.CORS_ORIGIN, // URL dari Vercel akan masuk di sini
-  'http://localhost:5173',   // URL untuk development di komputer Anda
+  process.env.CORS_ORIGIN, // URL dari Vercel akan masuk ke sini
+  'http://localhost:5173', // Port default Vite untuk development
 ];
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
-    // Izinkan jika origin (sumber permintaan) ada di dalam daftar,
-    // atau jika origin tidak ada (misalnya saat testing dengan Postman/Thunder Client)
-    if (!origin || allowedOrigins.includes(origin)) {
+    // 2. Kita cetak origin yang meminta izin SETIAP KALI ADA REQUEST
+    console.log('PERMINTAAN CORS DARI:', origin);
+    console.log('DAFTAR IZIN (allowedOrigins):', allowedOrigins);
+
+    if (!origin || (allowedOrigins.includes(origin))) {
+      console.log('IZIN CORS DIBERIKAN UNTUK:', origin);
       callback(null, true);
     } else {
+      console.error('IZIN CORS DITOLAK UNTUK:', origin);
       callback(new Error('Not allowed by CORS'));
     }
-  }
+  },
 };
 
 app.use(cors(corsOptions));
+// ==========================================================
+
 app.use(express.json());
 
-// Endpoint Health Check yang benar, memeriksa koneksi database
+// Endpoint Health Check
 app.get('/health', async (req, res) => {
     const isDbOk = await checkDbConnection();
     if (isDbOk) {
         res.status(200).json({ status: 'ok', database: 'connected' });
     } else {
-        // Beri status 503 Service Unavailable jika database tidak terhubung
         res.status(503).json({ status: 'error', database: 'disconnected' });
     }
 });
 
-// Pastikan semua rute sudah terdaftar
+// API Routes
 app.use('/api/users', userRoutes);
 app.use('/api/works', worksRoutes);
 app.use('/api/classes', classesRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-// Error Handler (wajib diletakkan setelah semua rute)
+// Error Handler
 app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server berhasil berjalan di port ${PORT}`);
 });
-
