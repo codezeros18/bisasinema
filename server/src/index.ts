@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
 import dotenv from "dotenv";
 import { checkDbConnection } from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -21,16 +21,18 @@ const allowedOrigins = [
   "http://localhost:5173", // untuk development
 ];
 
-const corsOptions: cors.CorsOptions = {
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // Izinkan Postman, dll.
+// ✅ Konfigurasi CORS aman untuk TypeScript
+const corsOptions: CorsOptions = {
+  origin: (origin: string | undefined, callback) => {
+    console.log("🌍 Incoming Origin:", origin);
+    if (!origin) return callback(null, true); // Izinkan Postman / server-side fetch
 
-    // Cek apakah origin yang masuk DIMULAI DENGAN salah satu origin di list
-    const isAllowed = allowedOrigins.some(allowed => 
+    const isAllowed = allowedOrigins.some((allowed) =>
       origin.startsWith(allowed)
     );
 
     if (isAllowed) {
+      console.log(`✅ Allowed by CORS: ${origin}`);
       callback(null, true);
     } else {
       console.log(`❌ Blocked by CORS: ${origin}`);
@@ -42,18 +44,18 @@ const corsOptions: cors.CorsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-// ✅ Apply middleware
+// ✅ Middleware harus di atas semua routes
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // ⚡ penting untuk preflight OPTIONS
 app.use(express.json());
 
 // ✅ Health check endpoint
 app.get("/health", async (req: Request, res: Response) => {
   const isDbOk = await checkDbConnection();
-  if (isDbOk) {
-    res.status(200).json({ status: "ok", database: "connected" });
-  } else {
-    res.status(503).json({ status: "error", database: "disconnected" });
-  }
+  res.status(isDbOk ? 200 : 503).json({
+    status: isDbOk ? "ok" : "error",
+    database: isDbOk ? "connected" : "disconnected",
+  });
 });
 
 // ✅ Routes
@@ -71,9 +73,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ message: "Internal Server Error" });
 });
 
-// ✅ Jalankan server (Railway pakai PORT env)
+// ✅ Jalankan server
 app.listen(PORT, () => {
   console.log(`🚀 Server berjalan di port ${PORT}`);
 });
-
-// halo
