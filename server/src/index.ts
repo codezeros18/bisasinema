@@ -21,11 +21,16 @@ const allowedOrigins = [
   "http://localhost:5173", // untuk development
 ];
 
-// ✅ Setup CORS dengan callback
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // untuk Postman / server internal
-    if (allowedOrigins.includes(origin)) {
+    if (!origin) return callback(null, true); // Izinkan Postman, dll.
+
+    // Cek apakah origin yang masuk DIMULAI DENGAN salah satu origin di list
+    const isAllowed = allowedOrigins.some(allowed => 
+      origin.startsWith(allowed)
+    );
+
+    if (isAllowed) {
       callback(null, true);
     } else {
       console.log(`❌ Blocked by CORS: ${origin}`);
