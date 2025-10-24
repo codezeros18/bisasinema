@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 // HANYA jalankan dotenv jika BUKAN di produksi
 if (process.env.NODE_ENV !== 'production') {
+  console.log("💻 Memuat .env untuk database..."); // Log ini untuk membedakan
   dotenv.config();
 }
 

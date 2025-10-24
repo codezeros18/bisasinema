@@ -9,7 +9,7 @@ import dashboardRoutes from "./routes/dashboardRoutes.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
 // HANYA jalankan dotenv jika BUKAN di produksi
 if (process.env.NODE_ENV !== 'production') {
-    console.log("💻 Mode development, memuat file .env...");
+    console.log("💻 Memuat .env untuk index..."); // Log ini untuk membedakan
     dotenv.config();
 }
 const app = express();
