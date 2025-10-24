@@ -1,8 +1,10 @@
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 
-// Pastikan file .env dibaca sebelum koneksi dibuat
-dotenv.config();
+// HANYA jalankan dotenv jika BUKAN di produksi
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
 
 let pool: mysql.Pool;
 
