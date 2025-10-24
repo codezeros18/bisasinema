@@ -30,9 +30,11 @@ const corsOptions: CorsOptions = {
     }
   },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Pastikan OPTIONS ada di sini
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-// Gunakan HANYA SATU middleware cors ini.
+// Gunakan HANYA SATU middleware cors ini di bagian ATAS
 app.use(cors(corsOptions));
 // ---------------------------------
 
@@ -59,8 +61,6 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use(errorHandler);
 
 // Global error logging
-// --- PERBAIKAN DI SINI ---
-// Menambahkan underscore (_) pada variabel req dan next yang tidak terpakai
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error("🔥 Unhandled Error:", err.message);
   res.status(500).json({ message: "Internal Server Error" });
@@ -69,5 +69,3 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server berjalan di port ${PORT}`);
 });
-
-//bisa yuk
