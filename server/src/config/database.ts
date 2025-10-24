@@ -2,23 +2,18 @@ import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 
 // HANYA jalankan dotenv jika BUKAN di produksi
-if (process.env.NODE_ENV !== 'production') {
-  console.log("💻 Memuat .env untuk database..."); // Log ini untuk membedakan
+if (process.env.NODE_ENV !== "production") {
+  console.log("💻 Memuat .env untuk development...");
   dotenv.config();
 }
 
 let pool: mysql.Pool;
 
-// --- Deteksi apakah kita di Railway (produksi) atau lokal (Laragon) ---
-if (
-  process.env.MYSQLHOST &&
-  process.env.MYSQLUSER &&
-  process.env.MYSQLPASSWORD &&
-  process.env.MYSQLDATABASE &&
-  process.env.MYSQLPORT
-) {
+// --- Deteksi lingkungan HANYA berdasarkan NODE_ENV ---
+if (process.env.NODE_ENV === "production") {
   // 🔹 Railway (production)
-  console.log("🌐 Mendeteksi variabel Railway, menggunakan koneksi produksi...");
+  // Variabel-variabel ini HARUS ada di Railway dashboard
+  console.log("🌐 Menggunakan koneksi PRODUKSI (Railway)...");
   pool = mysql.createPool({
     host: process.env.MYSQLHOST,
     user: process.env.MYSQLUSER,
@@ -31,7 +26,8 @@ if (
   });
 } else {
   // 🔹 Laragon (development lokal)
-  console.log("💻 Menggunakan koneksi lokal dari .env (Laragon)...");
+  // Variabel-variabel ini HARUS ada di file .env
+  console.log("💻 Menggunakan koneksi LOKAL (Laragon)...");
   pool = mysql.createPool({
     host: process.env.DB_HOST || "localhost",
     user: process.env.DB_USER || "root",
