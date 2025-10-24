@@ -19,16 +19,31 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
       try {
-          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/stats`, {
-              headers: { 'Authorization': `Bearer ${token}` }
-          });
-          const data = await response.json();
-          if (!response.ok) throw new Error(data.message || "Gagal mengambil data statistik.");
-          setStats(data);
-      } catch (error: any) {
-          console.error("Error fetching dashboard stats:", error);
-          alert(`Gagal memuat statistik: ${error.message}`);
-      }
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/dashboard/stats`, { // <-- URL sudah diubah
+           headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        // Cek .ok SEBELUM .json()
+        if (!response.ok) {
+            // Jika 404 atau 500, coba baca error message jika ada, jika tidak, lempar status
+            let errorMessage = `Gagal mengambil data statistik. Status: ${response.status}`;
+            try {
+              const errorData = await response.json();
+              errorMessage = errorData.message || errorMessage;
+            } catch (e) {
+              // Ini terjadi jika responsnya HTML (404 Not Found)
+              console.error("Respons bukan JSON:", e);
+            }
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json(); // <-- Sekarang aman untuk dipanggil
+        setStats(data);
+
+    } catch (error: any) {
+        console.error("Error fetching dashboard stats:", error);
+        alert(`Gagal memuat statistik: ${error.message}`);
+    }
   };
 
   useEffect(() => {
