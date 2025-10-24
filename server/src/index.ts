@@ -8,7 +8,11 @@ import classesRoutes from "./routes/classesRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
 
-dotenv.config();
+// HANYA jalankan dotenv jika BUKAN di produksi
+if (process.env.NODE_ENV !== 'production') {
+  console.log("💻 Mode development, memuat file .env...");
+  dotenv.config();
+}
 
 const app = express();
 const PORT = process.env.PORT || 8080;
