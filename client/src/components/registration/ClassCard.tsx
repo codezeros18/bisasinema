@@ -42,9 +42,6 @@ const ClassCard: React.FC<Props> = ({ item, onClick }) => {
           transition-all duration-300
         "
       >
-        <h3 className="text-white text-lg font-semibold drop-shadow-lg">
-          {item.title}
-        </h3>
         <p className="text-gray-300 text-sm mt-1 line-clamp-2">
           {item.desc}
         </p>

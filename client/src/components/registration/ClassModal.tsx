@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { ClassItem } from "./types";
+import PaymentModal from "./PaymentModal";
+
 
 interface Props {
   data: ClassItem | null;
@@ -8,6 +10,7 @@ interface Props {
 }
 
 const ClassModal: React.FC<Props> = ({ data, onClose }) => {
+  const [showPayment, setShowPayment] = useState(false);
   if (!data) return null;
 
   return (
@@ -30,7 +33,8 @@ const ClassModal: React.FC<Props> = ({ data, onClose }) => {
             className="absolute inset-0 w-full h-full object-cover"
           />
 
-          <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-black/85 via-black/60 to-transparent"></div>
+        <div className="absolute inset-y-0 right-0 w-[65%] bg-gradient-to-l from-black/90 via-black/70 to-transparent"></div>
+
 
           <button
             onClick={onClose}
@@ -57,15 +61,29 @@ const ClassModal: React.FC<Props> = ({ data, onClose }) => {
               )}
             </div>
 
-            <button className="
-              mt-8 bg-white text-black px-7 py-3 
-              rounded-full font-semibold 
-              hover:bg-gray-200 transition
-            ">
+            <button
+              onClick={() => setShowPayment(true)}
+              className="
+                mt-8 bg-white text-black px-7 py-3 
+                rounded-full font-semibold 
+                hover:bg-gray-200 transition
+              "
+            >
               Join Now
             </button>
           </div>
         </motion.div>
+         {/* PAYMENT MODAL */}
+        {showPayment && (
+          <PaymentModal
+            classId={data.id}
+            onClose={() => setShowPayment(false)}
+            onSuccess={() => {
+              setShowPayment(false);
+              onClose();
+            }}
+          />
+        )}
       </motion.div>
     </AnimatePresence>
   );

@@ -12,12 +12,14 @@ const Registrations = () => {
   const [selectedClass, setSelectedClass] = useState<ClassItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Parallax effect listener
   useEffect(() => {
     const fn = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  // Load data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,6 +52,7 @@ const Registrations = () => {
   return (
     <>
       <div className="relative w-full min-h-[160vh] overflow-hidden flex items-center">
+        {/* Background featured image */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -59,15 +62,31 @@ const Registrations = () => {
           }}
         />
 
+        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent" />
 
+        {/* Content */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-10 py-20 flex flex-col justify-center gap-20">
-          <FeaturedSection data={featured} />
-          <ClassesGrid data={classes} onSelect={(c) => setSelectedClass(c)} />
+          
+          {/* FEATURED SECTION — NOW WITH JOIN NOW MODAL */}
+          <FeaturedSection 
+            data={featured}
+            onJoin={() => setSelectedClass(featured)}  // <-- UPDATE PENTING
+          />
+
+          {/* GRID OF OTHER CLASSES */}
+          <ClassesGrid 
+            data={classes} 
+            onSelect={(c) => setSelectedClass(c)} 
+          />
         </div>
       </div>
 
-      <ClassModal data={selectedClass} onClose={() => setSelectedClass(null)} />
+      {/* CLASS MODAL */}
+      <ClassModal 
+        data={selectedClass} 
+        onClose={() => setSelectedClass(null)} 
+      />
     </>
   );
 };

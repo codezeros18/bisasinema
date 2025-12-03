@@ -3,9 +3,10 @@ import type { ClassItem } from "./types";
 
 interface Props {
   data: ClassItem;
+  onJoin: () => void;  // <-- Tambahkan ini
 }
 
-const FeaturedSection: React.FC<Props> = ({ data }) => {
+const FeaturedSection: React.FC<Props> = ({ data, onJoin }) => {
   return (
     <div className="max-w-xl">
       <span className="text-sm px-3 py-1 rounded-full bg-white/20 text-white">
@@ -26,7 +27,14 @@ const FeaturedSection: React.FC<Props> = ({ data }) => {
         <p>👥 Kuota: {data.quota} peserta</p>
       </div>
 
-      <button className="mt-6 bg-white text-black px-7 py-3 rounded-full font-semibold hover:bg-gray-100 transition">
+      {/* JOIN NOW triggers modal */}
+      <button
+        onClick={onJoin}
+        className="
+          mt-6 bg-white text-black px-7 py-3
+          rounded-full font-semibold hover:bg-gray-100 transition
+        "
+      >
         Join Now
       </button>
     </div>

@@ -21,6 +21,7 @@ import DashboardPage from './pages/admin/DashboardPage';
 import ManageWorksPage from './pages/admin/ManageWorksPage';
 import ManageClassesPage from './pages/admin/ManageClassesPage';
 import ManageUsersPage from './pages/admin/ManageUsersPage';
+import EventRegistrationPage from './pages/admin/EventRegistrationPage';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
           <Route path="works" element={<ManageWorksPage />} />
           <Route path="classes" element={<ManageClassesPage />} />
           <Route path="users" element={<ManageUsersPage />} />
+          <Route path="registrations" element={<EventRegistrationPage />} />
         </Route>
 
         <Route path="/login" element={<LoginPage />} />

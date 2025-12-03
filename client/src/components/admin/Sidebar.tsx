@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Video, Calendar, Users, ChevronDown, X} from "lucide-react";
+import { Home, Video, Calendar, Users, ChevronDown, X, Menu} from "lucide-react";
 
 // 1. Impor logo dari folder assets
 import logoFull from '../../assets/logowhite.png'; // Ganti 'logo-panjang.png' jika nama file berbeda
@@ -18,7 +18,7 @@ const adminMenuItems = [
     { name: "Manage Works", icon: <Video size={18} />, path: "/admin/works" },
     { name: "Manage Classes", icon: <Calendar size={18} />, path: "/admin/classes" },
     { name: "Manage Users", icon: <Users size={18} />, path: "/admin/users" },
-    // { name: "Registrations", icon: <Menu size={18} />, path: "/admin/registrations" }, // Path disesuaikan
+    { name: "Registrations", icon: <Menu size={18} />, path: "/admin/registrations" }, // Path disesuaikan
 ];
 
 export default function Sidebar({ isMobileOpen, isCollapsed, toggleSidebar }: SidebarProps) {

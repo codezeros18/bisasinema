@@ -29,6 +29,7 @@ const LoginPage = () => {
 
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('userId', String(data.user.id)); // ← FIX PALING PENTING
             
             // 3. Ganti alert dengan notifikasi sukses
             addNotification('Login berhasil!', 'success');
