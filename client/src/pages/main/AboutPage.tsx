@@ -12,9 +12,9 @@ const teamData = [
   {
     name: "S. Taufiqur Rahman",
     role: "CEO / Content Creator",
-    image: lintang1, // <--- 💡 PERBAIKAN: image ditambahkan kembali
-    video: videoBg1,
-    bio: "The visionary behind bìsasínema, responsible for creative direction and strategic partnerships.",
+    image: lintang1, // <-- Hanya satu kali
+    video: videoBg1, // <-- Hanya satu kali
+    bio: "The visionary behind bisasinema, responsible for creative direction and strategic partnerships.", // <-- Hanya satu kali
   },
   {
     name: "Nimas R. Prameswari",
@@ -363,4 +363,3 @@ const AboutPage: React.FC = () => {
   );
 };
 
-export default AboutPage;
