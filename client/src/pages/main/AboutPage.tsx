@@ -272,69 +272,64 @@ const AboutPage: React.FC = () => {
 
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
-            {/* ✅ CARD 1 = VIDEO */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9 }}
-              whileHover={{ scale: 1.04 }}
-              className="group bg-white/5 p-6 border border-gray-800 shadow-xl text-center"
-            >
-              <div className="relative w-full h-64 overflow-hidden border border-gray-700 mb-5">
-                <motion.video
-                  src={videoBg1}
-                  autoPlay loop muted={isMuted} playsInline
-                  className="w-full h-full object-cover"
-                />
+           {/* ✅ CARD 1 = IMAGE ONLY */}
+<motion.div
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.9 }}
+  whileHover={{ scale: 1.04 }}
+  className="group bg-white/5 p-6 border border-gray-800 shadow-xl text-center"
+>
+  <div className="relative w-full h-64 overflow-hidden border border-gray-700 mb-5">
+    <img
+      src={teamData[0].image}
+      alt={teamData[0].name}
+      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+    />
+  </div>
 
-                <button
-                  onClick={toggleMute}
-                  className="absolute bottom-3 right-3 bg-black/50 hover:bg-black/80 text-white p-2 transition"
-                >
-                  {isMuted ? <VolumeX size={20}/> : <Volume2 size={20}/>}
-                </button>
-              </div>
+  <h3 className="text-2xl font-bold uppercase tracking-[4px]">
+    {teamData[0].name}
+  </h3>
+  <p className="text-xs uppercase font-semibold text-gray-500 tracking-[3px] mb-3">
+    {teamData[0].role}
+  </p>
+  <p className="text-gray-400 font-light text-sm">
+    {teamData[0].bio}
+  </p>
+</motion.div>
 
-              <h3 className="text-2xl font-bold uppercase tracking-[4px]">
-                {teamData[0].name}
-              </h3>
-              <p className="text-xs uppercase font-semibold text-gray-500 tracking-[3px] mb-3">
-                {teamData[0].role}
-              </p>
-              <p className="text-gray-400 font-light text-sm">
-                {teamData[0].bio}
-              </p>
-            </motion.div>
+{/* ✅ CARD 2 & 3 = IMAGE */}
+{teamData.slice(1).map((m, i) => (
+  <motion.div
+    key={m.name}
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: i * 0.15 }}
+    whileHover={{ scale: 1.03 }}
+    className="group bg-white/5 p-6 border border-gray-800 shadow-xl text-center"
+  >
+    <div className="w-full h-64 overflow-hidden border border-gray-700 mb-5">
+      <img
+        src={m.image}
+        alt={m.name}
+        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+      />
+    </div>
 
-            {/* CARD 2 & 3 masih image */}
-            {teamData.slice(1).map((m, i) => (
-              <motion.div
-                key={m.name}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: i * 0.15 }}
-                whileHover={{ scale: 1.03 }}
-                className="group bg-white/5 p-6 border border-gray-800 shadow-xl text-center"
-              >
-                <div className="w-full h-64 overflow-hidden border border-gray-700 mb-5">
-                  <img
-                    src={m.image}
-                    alt={m.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                  />
-                </div>
+    <h3 className="text-2xl font-bold uppercase tracking-[4px]">
+      {m.name}
+    </h3>
+    <p className="text-xs uppercase font-semibold text-gray-500 tracking-[3px] mb-3">
+      {m.role}
+    </p>
+    <p className="text-gray-400 font-light text-sm">
+      {m.bio}
+    </p>
+  </motion.div>
+))}
 
-                <h3 className="text-2xl font-bold uppercase tracking-[4px]">
-                  {m.name}
-                </h3>
-                <p className="text-xs uppercase font-semibold text-gray-500 tracking-[3px] mb-3">
-                  {m.role}
-                </p>
-                <p className="text-gray-400 font-light text-sm">
-                  {m.bio}
-                </p>
-              </motion.div>
-            ))}
+            
 
           </div>
         </section>
