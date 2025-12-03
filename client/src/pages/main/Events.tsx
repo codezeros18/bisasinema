@@ -75,12 +75,13 @@ const WorksPage: React.FC = () => {
       {/* === Intro Section === */}
       <section className="text-center pt-28 pb-8 bg-black px-4">
         <h1 className="text-5xl md:text-6xl font-bold text-white">
-          Our Works
+          Our Events
         </h1>
         <p className="mt-6 max-w-3xl mx-auto text-white text-base md:text-lg leading-relaxed">
-          We collaborate with various brands and creators to craft <br className="hidden md:block" />
-          meaningful visual works, from branded content to creative project <br className="hidden md:block" />
-          documentation and media activities.
+          We partner with communities, brands, and creators to capture meaningful moments,<br className="hidden md:block" />
+from intimate sessions to major celebrations. Through thoughtful documentation <br className="hidden md:block" />
+and creative execution.
+
         </p>
       </section>
 
