@@ -8,10 +8,11 @@ import logo from "../assets/logowhite.png";
 
 const navLinks = [
   { name: "Home", path: "/" },
-  // { name: "Works", path: "/works" },
-  // { name: "Classes", path: "/classes" },
-  // { name: "Community", path: "/community" },
-  // { name: "About", path: "/about" },
+  { name: "Events", path: "/events" },
+  { name: "Registrations", path: "/registrations" },
+  { name: "Education", path: "/education" },
+  { name: "Media", path: "/media" },
+  { name: "About", path: "/about" },
   { name: "Contact", path: "/contact" },
 ];
 

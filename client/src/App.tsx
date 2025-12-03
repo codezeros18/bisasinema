@@ -6,14 +6,15 @@ import Notification from './components/Notification';
 // --- Layouts & Pages (Impor Anda tetap sama) ---
 import MainLayout from './layouts/MainLayout';
 import AdminLayout from './layouts/AdminLayout';
-import HomePage from './pages/main/HomePage';
-import AboutPage from './pages/main/AboutPage';
-import WorksPage from './pages/main/WorksPage';
-import ClassesPage from './pages/main/ClassesPage';
-import ContactPage from './pages/main/ContactPage';
+import Home from './pages/main/Home';
+import About from './pages/main/About';
+import Events from './pages/main/Events';
+import Registrations from './pages/main/Registrations';
+import Education from './pages/main/Education';
+import Contact from './pages/main/Contact';
 import ProfilePage from './pages/main/ProfilePage';
-import CommunityPage from './pages/main/CommunityPage';
-import WorksDetailPage from "./pages/main/WorksDetailPage";
+import Media from './pages/main/Media';
+import EventsDetail from "./pages/main/EventsDetail";
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import DashboardPage from './pages/admin/DashboardPage';
@@ -45,13 +46,14 @@ function App() {
       {/* --- RUTE APLIKASI ANDA (TIDAK BERUBAH) --- */}
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/works" element={<WorksPage />} />
-          <Route path="/classes" element={<ClassesPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/works/:slug" element={<WorksDetailPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/registrations" element={<Registrations />} />
+          <Route path="/education" element={<Education />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/media" element={<Media />} />
+          <Route path="/events/:slug" element={<EventsDetail />} />
         </Route>
 
         <Route path="/admin" element={<AdminLayout />}>
