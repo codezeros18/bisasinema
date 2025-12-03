@@ -67,16 +67,11 @@ const servicesData = [
 ];
 
 const AboutPage: React.FC = () => {
-  // ✅ mute state per video card
-  const [mutedIndex, setMutedIndex] = React.useState<{ [key: number]: boolean }>({
-    0: true,
-  });
+  /** ✅ STATE FOR SOUND CONTROL */
+  const [isMuted, setIsMuted] = React.useState(true);
 
-  const toggleMute = (index: number) => {
-    setMutedIndex((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
+  const toggleMute = () => {
+    setIsMuted((prev) => !prev);
   };
 
   const spawnRipple = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -85,12 +80,8 @@ const AboutPage: React.FC = () => {
     const size = Math.max(card.clientWidth, card.clientHeight);
 
     circle.style.width = circle.style.height = `${size}px`;
-    circle.style.left = `${
-      e.clientX - card.getBoundingClientRect().left - size / 2
-    }px`;
-    circle.style.top = `${
-      e.clientY - card.getBoundingClientRect().top - size / 2
-    }px`;
+    circle.style.left = `${e.clientX - card.getBoundingClientRect().left - size / 2}px`;
+    circle.style.top = `${e.clientY - card.getBoundingClientRect().top - size / 2}px`;
     circle.className = "ripple";
 
     card.appendChild(circle);
@@ -108,6 +99,7 @@ const AboutPage: React.FC = () => {
     >
       {/* DARK OVERLAY */}
       <div className="absolute inset-0 bg-black/60 z-10"></div>
+
       <div className="relative z-20">
 
         {/* HERO SECTION */}
@@ -195,6 +187,42 @@ const AboutPage: React.FC = () => {
           </div>
         </section>
 
+        {/* ABOUT PLATFORM */}
+        <section className="py-20 bg-black/40 border-b border-gray-600">
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-6">
+              <h2 className="text-4xl font-bold uppercase tracking-[4px] mb-4">
+                What is bìsasínema?
+              </h2>
+              <p className="text-lg text-gray-300 pl-4 border-l-2 border-gray-500">
+                A film-creator driven education platform and growing creative community.
+              </p>
+              <p className="text-gray-200 font-light mt-4">
+                We shape young storytellers into real creators through production, collaboration, and audience exposure.
+              </p>
+            </div>
+
+            {/* ✅ VIDEO CARD WITH UNMUTE */}
+            <div className="md:col-span-6 h-72 overflow-hidden border border-gray-700 relative">
+              <motion.video
+                src={videoBg1}
+                autoPlay
+                loop
+                muted={isMuted}
+                playsInline
+                className="w-full h-full object-cover"
+              />
+
+              <button
+                onClick={toggleMute}
+                className="absolute bottom-3 right-3 bg-black/50 hover:bg-black/80 text-white p-2 transition z-40"
+              >
+                {isMuted ? <VolumeX size={20}/> : <Volume2 size={20}/>}
+              </button>
+            </div>
+          </div>
+        </section>
+
         {/* SERVICES */}
         <section className="py-20 bg-black/60 border-b border-gray-600">
           <motion.h2
@@ -216,12 +244,8 @@ const AboutPage: React.FC = () => {
                 whileHover={{ scale: 1.04 }}
                 className="group bg-white/5 p-7 border border-gray-800 text-center"
               >
-                <motion.div
-                  animate={{ y: [0, -7, 0] }}
-                  transition={{ repeat: Infinity, duration: 3, delay: i }}
-                  className="flex justify-center mb-4 opacity-60 group-hover:opacity-100 transition"
-                >
-                  <s.icon size={48} />
+                <motion.div animate={{ y: [0, -7, 0] }} transition={{ repeat: Infinity, duration: 3, delay: i }} className="flex justify-center mb-4 opacity-60 group-hover:opacity-100 transition">
+                  <s.icon size={48}/>
                 </motion.div>
 
                 <h3 className="text-2xl font-bold uppercase mb-3 tracking-[4px]">
@@ -235,7 +259,7 @@ const AboutPage: React.FC = () => {
           </div>
         </section>
 
-        {/* TEAM */}
+        {/* TEAM SECTION (2 MASIH IMAGE — kamu bisa ganti ke video nanti) */}
         <section className="py-28 bg-black">
           <motion.h2
             className="text-4xl md:text-7xl font-bold text-center mb-14 uppercase tracking-[6px]"
@@ -248,9 +272,8 @@ const AboutPage: React.FC = () => {
 
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
-            {/* ✅ VIDEO CARD FOR INDEX 0 */}
+            {/* ✅ CARD 1 = VIDEO */}
             <motion.div
-              key={teamData[0].name}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9 }}
@@ -259,19 +282,16 @@ const AboutPage: React.FC = () => {
             >
               <div className="relative w-full h-64 overflow-hidden border border-gray-700 mb-5">
                 <motion.video
-                  src={teamData[0].video}
-                  autoPlay
-                  loop
-                  muted={mutedIndex[0]}
-                  playsInline
+                  src={videoBg1}
+                  autoPlay loop muted={isMuted} playsInline
                   className="w-full h-full object-cover"
                 />
 
                 <button
-                  onClick={() => toggleMute(0)}
+                  onClick={toggleMute}
                   className="absolute bottom-3 right-3 bg-black/50 hover:bg-black/80 text-white p-2 transition"
                 >
-                  {mutedIndex[0] ? <VolumeX size={20}/> : <Volume2 size={20}/>}
+                  {isMuted ? <VolumeX size={20}/> : <Volume2 size={20}/>}
                 </button>
               </div>
 
@@ -286,7 +306,7 @@ const AboutPage: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* CARD 2 & 3 = IMAGE */}
+            {/* CARD 2 & 3 masih image */}
             {teamData.slice(1).map((m, i) => (
               <motion.div
                 key={m.name}
@@ -318,9 +338,10 @@ const AboutPage: React.FC = () => {
 
           </div>
         </section>
+
       </div>
 
-      {/* RIPPLE STYLE (tidak diubah) */}
+      {/* RIPPLE STYLE */}
       <style>{`
         .ripple {
           position: absolute;
@@ -337,6 +358,7 @@ const AboutPage: React.FC = () => {
           }
         }
       `}</style>
+
     </div>
   );
 };
