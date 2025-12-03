@@ -12,9 +12,9 @@ const teamData = [
   {
     name: "S. Taufiqur Rahman",
     role: "CEO / Content Creator",
-    image: lintang1,
+    image: lintang1, // <--- 💡 PERBAIKAN: image ditambahkan kembali
     video: videoBg1,
-    bio: "The visionary behind bisasinema, responsible for creative direction and strategic partnerships.",
+    bio: "The visionary behind bìsasínema, responsible for creative direction and strategic partnerships.",
   },
   {
     name: "Nimas R. Prameswari",
