@@ -7,6 +7,8 @@ import worksRoutes from "./routes/worksRoutes.js";
 import classesRoutes from "./routes/classesRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
+import classRegistrationRoutes from "./routes/classRegistrationRoutes.js";
+import path from "path";
 
 // HANYA jalankan dotenv jika BUKAN di produksi
 if (process.env.NODE_ENV !== 'production') {
@@ -16,6 +18,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+app.use(
+  "/uploads",
+  express.static(path.join(process.cwd(), "uploads"))
+);
 
 // --- KONFIGURASI CORS YANG BENAR ---
 const allowedOrigins = [
@@ -38,6 +45,12 @@ const corsOptions: CorsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+
+
+// Serve folder uploads sebagai file statis
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
+
 // Gunakan HANYA SATU middleware cors ini di bagian ATAS
 app.use(cors(corsOptions));
 // ---------------------------------
@@ -55,11 +68,13 @@ app.get("/health", async (req: Request, res: Response) => {
   }
 });
 
+
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/works", worksRoutes);
 app.use("/api/classes", classesRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/class-registrations", classRegistrationRoutes);
 
 // Error handler middleware (custom)
 app.use(errorHandler);
