@@ -12,6 +12,7 @@ const teamData = [
   {
     name: "S. Taufiqur Rahman",
     role: "CEO / Content Creator",
+    image: lintang1, // <--- 💡 PERBAIKAN: image ditambahkan kembali
     video: videoBg1,
     bio: "The visionary behind bìsasínema, responsible for creative direction and strategic partnerships.",
   },
