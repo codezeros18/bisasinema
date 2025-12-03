@@ -14,7 +14,7 @@ const teamData = [
     role: "CEO / Content Creator",
     image: lintang1,
     video: videoBg1,
-    bio: "The visionary behind bisasinema, responsible on creative direction and strategic partnerships.",
+    bio: "The visionary behind bisasinema, responsible for creative direction and strategic partnerships.",
   },
   {
     name: "Nimas R. Prameswari",
