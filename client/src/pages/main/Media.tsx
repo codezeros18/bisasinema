@@ -1,6 +1,4 @@
 import React from 'react';
-// Anggap ini mengimpor style yang baru dibuat
-import './mediastyle.css'; 
 
 // --- Interface Data Blog ---
 
@@ -48,89 +46,115 @@ const blogPosts: BlogPost[] = [
 // --- Komponen Kartu Postingan ---
 
 const PostCard: React.FC<{ post: BlogPost }> = ({ post }) => (
-  <article className="post-card">
-    <div className="card-image-placeholder">
-      {/* Gambar Postingan */}
-      <img src={post.imageUrl} alt={post.title} className="post-image" />
+  <article className="flex flex-col md:flex-row mb-12 border-b border-neutral-800 pb-8">
+    <div className="w-full md:w-[250px] h-[200px] bg-neutral-900 flex-shrink-0 mb-6 md:mb-0 md:mr-6 overflow-hidden">
+      <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover" />
     </div>
-    <div className="card-content">
-      <span className="post-category">{post.category}</span>
-      <h3 className="post-title-small">{post.title}</h3>
-      <p className="post-excerpt">{post.excerpt}</p>
-      <div className="post-meta">
-        <span className="post-date">{post.date}</span>
-        <span className="post-separator">·</span>
-        <span className="post-read-time">{post.readingTime}</span>
+
+    <div>
+      <span className="block text-cyan-300 font-bold uppercase tracking-wider text-xs mb-2">
+        {post.category}
+      </span>
+
+      <h3 className="text-xl font-bold leading-tight text-white mb-2">
+        {post.title}
+      </h3>
+
+      <p className="text-neutral-400 mb-3">
+        {post.excerpt}
+      </p>
+
+      <div className="text-neutral-500 text-sm flex items-center gap-2">
+        <span>{post.date}</span>
+        <span>·</span>
+        <span>{post.readingTime}</span>
       </div>
     </div>
   </article>
 );
 
 
+
 // --- Komponen Halaman Blog Utama ---
-
 const BlogPage: React.FC = () => {
-  const featuredPost = blogPosts[0]; // Ambil postingan pertama sebagai featured
-  
-  return (
-    <div className="blog-page-container">
-      {/* Anggap Header sudah ada di atas */}
+  const featuredPost = blogPosts[0];
 
-      {/* 1. Hero / Featured Post Section */}
-      <section className="featured-section">
-        <span className="featured-label">Featured Article</span>
-        <h1 className="featured-title">
+  return (
+    <div className="bg-black text-white pt-14 min-h-screen font-sans">
+
+      {/* FEATURED SECTION */}
+      <section className="px-20 py-20">
+        <span className="block text-sm font-bold text-neutral-500 uppercase tracking-[0.2em] mb-3">
+          Featured Article
+        </span>
+
+        <h1 className="font-extrabold leading-[1.1] text-[4.5vw] max-w-[80%] mb-5">
           {featuredPost.title}
         </h1>
-        <div className="featured-meta">
-          <span className="post-category">{featuredPost.category}</span>
-          <span className="post-separator">/</span>
-          <span className="post-date">{featuredPost.date}</span>
+
+        <div className="text-neutral-400 text-base mb-10 flex items-center gap-3">
+          <span className="text-cyan-300 uppercase text-xs tracking-wide font-bold">
+            {featuredPost.category}
+          </span>
+          <span>/</span>
+          <span>{featuredPost.date}</span>
         </div>
-        
-        {/* Visual besar yang meniru style referensi */}
-        <div className="featured-visual">
-          <img src={featuredPost.imageUrl} alt={featuredPost.title} />
+
+        <div className="w-full h-[500px] bg-neutral-900 flex items-center justify-center">
+          <img src={featuredPost.imageUrl} alt={featuredPost.title} className="object-cover w-full h-full" />
         </div>
       </section>
 
-      <hr className="divider" />
+      <hr className="border-neutral-800 mx-20" />
 
-      {/* 2. Post List & Sidebar Section */}
-      <section className="content-layout">
-        
-        {/* A. Daftar Postingan (Main Content) */}
-        <div className="post-list">
-          <h2 className="section-heading">Latest Posts</h2>
-          {blogPosts.map(post => (
-            <PostCard key={post.id} post={post} />
-          ))}
-          {/* Tombol Load More untuk style blog modern */}
-          <button className="load-more-button">Load More Articles ⤢</button>
+      {/* CONTENT + SIDEBAR */}
+      <section className="px-20 py-20 flex flex-col lg:flex-row gap-16">
+
+        {/* POST LIST */}
+        <div className="flex-1">
+          <h2 className="text-3xl font-extrabold mb-10">Latest Posts</h2>
+
+          {blogPosts.map((post) => <PostCard key={post.id} post={post} />)}
+
+          <button
+            className="w-full border border-neutral-600 py-4 font-bold mt-8 transition hover:bg-cyan-300 hover:text-black"
+          >
+            Load More Articles ⤢
+          </button>
         </div>
 
-        {/* B. Sidebar (Kategori & Recent) */}
-        <aside className="blog-sidebar">
-          <div className="sidebar-box">
-            <h3 className="sidebar-title">Categories</h3>
-            <ul className="category-list">
-              <li><a href="#">Technology (4)</a></li>
-              <li><a href="#">Programming (12)</a></li>
-              <li><a href="#">Design (5)</a></li>
-              <li><a href="#">Marketing (8)</a></li>
+        {/* SIDEBAR */}
+        <aside className="w-full lg:w-72">
+          <div className="mb-12">
+            <h3 className="text-lg font-extrabold border-b border-neutral-600 pb-2 mb-5">
+              Categories
+            </h3>
+            <ul className="text-neutral-400 divide-y divide-neutral-800">
+              <li className="py-2 hover:text-white cursor-pointer">Technology (4)</li>
+              <li className="py-2 hover:text-white cursor-pointer">Programming (12)</li>
+              <li className="py-2 hover:text-white cursor-pointer">Design (5)</li>
+              <li className="py-2 hover:text-white cursor-pointer">Marketing (8)</li>
             </ul>
           </div>
 
-          <div className="sidebar-box">
-            <h3 className="sidebar-title">Stay Updated</h3>
-            <p>Get the latest news directly to your inbox.</p>
-            <input type="email" placeholder="Your Email Address" className="subscribe-input" />
-            <button className="subscribe-button">Subscribe</button>
+          <div>
+            <h3 className="text-lg font-extrabold border-b border-neutral-600 pb-2 mb-5">
+              Stay Updated
+            </h3>
+            <p className="text-neutral-400 mb-4">Get the latest news directly to your inbox.</p>
+            <input
+              type="email"
+              placeholder="Your Email Address"
+              className="w-full p-3 bg-neutral-900 border border-neutral-700 text-white mb-3"
+            />
+            <button className="w-full bg-white text-black font-bold py-3">
+              Subscribe
+            </button>
           </div>
         </aside>
 
       </section>
-      
+
     </div>
   );
 };
