@@ -259,7 +259,7 @@ const AboutPage: React.FC = () => {
           </div>
         </section>
 
-        {/* TEAM SECTION (2 MASIH IMAGE — kamu bisa ganti ke video nanti) */}
+        
         <section className="py-28 bg-black">
           <motion.h2
             className="text-4xl md:text-7xl font-bold text-center mb-14 uppercase tracking-[6px]"
