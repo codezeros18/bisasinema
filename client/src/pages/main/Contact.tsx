@@ -83,7 +83,6 @@ const ContactPage: React.FC = () => {
           <div className="space-y-6 pt-6">
             <h2
               className="text-xl font-semibold text-white-400"
-              style={{ textShadow: '0 0 10px rgba(255, 255, 255, 1)' }}
             >
               Official Contact
             </h2>
@@ -132,7 +131,6 @@ const ContactPage: React.FC = () => {
         <div className="w-full max-w-md bg-white/10 backdrop-blur-xl shadow-xl border border-white/20 p-8">
           <h2
             className="text-2xl font-bold text-white-400 mb-6"
-            style={{ textShadow: '0 0 10px rgba(240, 239, 235, 1)' }}
           >
             Send Us a Message
           </h2>
@@ -169,8 +167,8 @@ const ContactPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold shadow-md hover:scale-[1.02] transition-transform duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
-            >
+             // className="w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold shadow-md hover:scale-[1.02] transition-transform duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+             className="w-full mt-6 py-3 rounded-xl bg-black text-white font-bold shadow-md hover:scale-[1.02] hover:bg-gradient-to-r hover:shadow-[0_0_56px_rgba(0,128,255,0.71)] hover:from-cyan-600 hover:to-blue-600 transition-transform duration-300 disabled:opacity-60 disabled:cursor-not-allowed">
               {isSubmitting ? 'Sending...' : (
                 <span className="inline-flex items-center gap-2">
                   <Send size={20} />
