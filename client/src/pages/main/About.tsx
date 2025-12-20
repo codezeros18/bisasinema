@@ -2,7 +2,8 @@ import React from "react";
 import { Users, Video, Lightbulb, Volume2, VolumeX } from "lucide-react";
 import { motion } from "framer-motion";
 import videoBg1 from "../../assets/koko.mp4";
-import bgImage from "../../assets/DSCF0644.jpg";
+// @ts-ignore
+import bgImage from "../../assets/DSCF0644.JPG";
 import heroVideo from "../../assets/marko.mp4";
 import lintang1 from "../../assets/lintang1.jpg";
 import lintang2 from "../../assets/lintang2.jpg";
