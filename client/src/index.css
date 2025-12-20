@@ -53,6 +53,107 @@ body {
   border-radius: 9999px;
 }
 
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-hero-gradient {
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.06),
+      transparent 45%
+    ),
+    linear-gradient(
+      120deg,
+      #0b0b0b,
+      #111827,
+      #0b0b0b
+    );
+  background-size: 200% 200%;
+}
+
+.animate-gradient {
+  animation: gradientMove 18s ease infinite;
+}
+
+/* subtle grain */
+.bg-noise {
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+/* BASE */
+.particles {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+/* SMALL — banyak & halus */
+.particles-sm {
+  background-image:
+    radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 90px 90px;
+  animation: drift-sm 60s linear infinite;
+  opacity: 0.25;
+}
+
+/* MEDIUM — lebih jarang */
+.particles-md {
+  background-image:
+    radial-gradient(rgba(255,255,255,0.2) 1.5px, transparent 1.5px);
+  background-size: 160px 160px;
+  animation: drift-md 90s linear infinite;
+  opacity: 0.18;
+}
+
+/* LARGE — cinematic */
+.particles-lg {
+  background-image:
+    radial-gradient(rgba(255,255,255,0.12) 2px, transparent 2px);
+  background-size: 280px 280px;
+  animation: drift-lg 140s linear infinite;
+  opacity: 0.12;
+}
+
+/* ANIMATIONS */
+@keyframes drift-sm {
+  from { background-position: 0 0; }
+  to { background-position: 400px 600px; }
+}
+
+@keyframes drift-md {
+  from { background-position: 0 0; }
+  to { background-position: -600px 400px; }
+}
+
+@keyframes drift-lg {
+  from { background-position: 0 0; }
+  to { background-position: 300px -300px; }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
 
 
 /* a {
