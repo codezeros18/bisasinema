@@ -45,7 +45,7 @@ const PaymentModal: React.FC<Props> = ({ classId, onClose, onSuccess }) => {
           animate={{ scale: 1 }}
         >
           <h2 className="text-2xl font-bold mb-6">Payment Confirmation</h2>
-
+          
           <input
             type="file"
             className="w-full bg-black/20 p-3 rounded-lg text-sm border border-white/10 mb-4"

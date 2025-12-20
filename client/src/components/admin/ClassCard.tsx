@@ -104,14 +104,14 @@ export default function ClassCard({ classItem, onEdit, onDelete }: ClassCardProp
         </div>
 
         {/* CTA */}
-        <div className="pt-4">
+        {/* <div className="pt-4">
           <motion.button
             whileHover={{ scale: 1.05 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm bg-gradient-to-r from-pink-500 to-purple-600 text-white font-medium hover:opacity-90 transition"
           >
             Lihat Detail
           </motion.button>
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );

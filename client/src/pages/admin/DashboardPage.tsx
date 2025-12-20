@@ -101,7 +101,7 @@ export default function AdminDashboard() {
 
       {/* Aksi Cepat */}
   <div>
-    <h2 className="text-xl font-bold mt-8 mb-4">Aksi Cepat</h2>
+    <h2 className="text-xl font-bold mt-8 mb-4">Quick Action</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <QuickAction 
         onClick={() => setIsWorkModalOpen(true)}
