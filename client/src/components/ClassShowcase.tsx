@@ -1,166 +1,194 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Laptop, Users, DollarSign } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import type { Class } from "../types";
+import img1 from "../assets/DSCF0568.jpg";
 
-// --- PERUBAHAN DI SINI: Menerima props 'activeFilter' ---
-interface ClassShowcaseProps {
-  activeFilter: string;
-}
+/* ========= MOTION VARIANTS ========= */
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
 
-export default function ClassShowcase({ activeFilter }: ClassShowcaseProps) {
-  const [allClasses, setAllClasses] = useState<Class[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+const fadeScale = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { opacity: 1, scale: 1 },
+};
+
+export default function HomeCinematicEditorial() {
+  const [classes, setClasses] = useState<Class[]>([]);
 
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/classes`);
-        if (!response.ok) throw new Error("Gagal memuat data kelas.");
-        const data: Class[] = await response.json();
-        setAllClasses(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/classes`
+        );
+        const data: Class[] = await res.json();
+        setClasses(data.slice(0, 2));
+      } catch (err) {
+        console.error(err);
       }
     };
     fetchClasses();
   }, []);
 
-  // --- LOGIKA FILTER BARU ---
-  const filteredClasses = allClasses
-    .filter(c => c.status === 'Pendaftaran Dibuka' || c.status === 'Segera Hadir')
-    .filter(c => {
-        if (activeFilter === 'All') return true;
-        return c.format === activeFilter;
-    })
-    .slice(0, 2);
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return "Akan diumumkan";
-    return new Date(dateString).toLocaleDateString("id-ID", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  if (isLoading) {
-    return (
-      <div className="text-center py-20 text-white/50">
-        <p>Memuat kelas...</p>
-      </div>
-    );
-  }
-
-  if (filteredClasses.length === 0) {
-    return (
-      <div className="text-center py-20 text-white/50">
-        <p>Tidak ada kelas yang tersedia untuk filter ini.</p>
-      </div>
-    );
-  }
-
   return (
-    <section className="relative w-full overflow-x-hidden px-5 sm:px-16 py-20 text-white bg-[#101010]">
-      <div className="relative space-y-32">
-        {filteredClasses.map((classItem, index) => {
-          const isReversed = index % 2 !== 0;
+    <section className="relative w-full bg-black text-white px-6 sm:px-10 lg:px-16 py-28 overflow-hidden">
+      <div className="max-w-8xl mx-auto space-y-16">
 
-          return (
-            <motion.div
-              key={classItem.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              viewport={{ once: true, amount: 0.3 }}
-              className={`grid md:grid-cols-2 gap-16 items-center ${
-                isReversed ? "md:[&>*:first-child]:order-last" : ""
-              }`}
-            >
-              {/* GAMBAR */}
-              <motion.div
-                initial={{ opacity: 0, x: isReversed ? -60 : 60 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="relative group rounded-2xl overflow-hidden border border-white/10"
+        {/* ================= ROW 1 ================= */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+
+          {/* IMAGE + FOOTNOTE */}
+          <motion.div
+            variants={fadeScale}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            className="md:col-span-3 space-y-3"
+          >
+            <img
+              src={img1}
+              alt="Bisasinema Studio"
+              className="w-full aspect-square object-cover"
+            />
+
+            <div className="flex justify-between text-[10px] tracking-widest uppercase text-white/60">
+              <span>BÌSASÍNEMA</span>
+              <span>©2023</span>
+            </div>
+          </motion.div>
+
+          {/* TITLE */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="md:col-span-9"
+          >
+            <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-white/50 mb-6">
+              <motion.span
+                whileHover={{ rotate: 20, scale: 1.15 }}
+                transition={{ type: "spring", stiffness: 200 }}
+                className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/20"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-white/5 to-transparent opacity-90 transition-opacity duration-700"></div>
-                <motion.img
-                  src={
-                    classItem.link_thumbnail ||
-                    "https://placehold.co/600x400/101010/FFFFFF?text=Class"
-                  }
-                  alt={classItem.nama_kelas}
-                  className="w-full h-auto object-cover transition-transform duration-700 ease-out"
-                />
-              </motion.div>
+                <Sparkles size={14} />
+              </motion.span>
+              Incredible Agency
+            </div>
 
-              {/* TEKS */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="space-y-6 max-w-xl"
-              >
-                <p className="text-sm font-semibold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 uppercase">
-                  {classItem.status}
-                </p>
+            <h1 className="
+              text-[38px]
+              sm:text-[56px]
+              lg:text-[72px]
+              leading-[1.1]
+              font-semibold
+              tracking-tight
+            ">
+              BEYOND THE CLASSROOM
+              WHO NEVER
+              <br />
+              STOP LEARNING.
+            </h1>
+          </motion.div>
+        </div>
 
-                <h2 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-tight bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
-                  {classItem.nama_kelas}
-                </h2>
 
-                <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                  {classItem.deskripsi}
-                </p>
+        {/* ================= ROW 2 ================= */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
 
-                {/* DETAIL GRID */}
-                <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-6">
-                  {[ 
-                    { icon: <DollarSign size={16} />, text: `Rp ${classItem.harga.toLocaleString("id-ID")}` },
-                    { icon: <Laptop size={16} />, text: classItem.format },
-                    { icon: <Calendar size={16} />, text: formatDate(classItem.tanggal_mulai) },
-                    { icon: <Users size={16} />, text: `${classItem.kuota || "Terbatas"} Peserta` },
-                  ].map((item, i) => (
-                    <div
-                      key={i}
-                      className="bg-white/[0.03] hover:bg-white/[0.08] transition-colors rounded-xl p-3 flex items-center gap-2 text-sm border border-white/10"
-                    >
-                      <span className="text-gray-300">{item.icon}</span>
-                      <span className="text-gray-200">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
+          {/* LEFT TEXT */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 0.9 }}
+            className="md:col-span-4 space-y-5"
+          >
+            <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-white/50">
+              <Sparkles size={14} />
+              Our Perspective
+            </div>
 
-                {/* CTA */}
-                {classItem.status === "Pendaftaran Dibuka" ? (
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.97 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold 
-                    bg-gradient-to-r from-white to-gray-300 text-black hover:from-gray-200 hover:to-white transition-all text-sm tracking-wide shadow-lg"
-                  >
-                    Daftar Sekarang →
-                  </motion.button>
-                ) : (
-                  <div className="mt-8">
-                    <p className="inline-block px-4 py-2 bg-white/[0.07] border border-white/10 rounded-lg text-gray-300 text-sm">
-                      Segera Hadir
-                    </p>
-                  </div>
-                )}
-              </motion.div>
-            </motion.div>
-          );
-        })}
+            <p className="text-white/70 leading-relaxed text-base max-w-sm">
+              We shape creative minds through cinematic language,
+              visual discipline, and intentional storytelling.
+            </p>
+          </motion.div>
+
+          {/* RIGHT VISUALS */}
+<motion.div
+  variants={fadeUp}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: false, amount: 0.4 }}
+  transition={{ duration: 1.1 }}
+  className="
+    md:col-span-8
+    grid
+    grid-cols-2
+    md:grid-cols-12
+    gap-6
+  "
+>
+  {/* LANDSCAPE — 2/3 WIDTH */}
+  <div className="col-span-2 md:col-span-6">
+    <img
+      src={
+        classes[0]?.link_thumbnail ||
+        'https://placehold.co/800x400/111/fff'
+      }
+      alt="Class Landscape"
+      className="w-full h-[220px] object-cover"
+    />
+  </div>
+
+  {/* PORTRAIT — 1/3 WIDTH */}
+  <div className="col-span-1 md:col-span-3">
+    <img
+      src={
+        classes[1]?.link_thumbnail ||
+        'https://placehold.co/400x600/111/fff'
+      }
+      alt="Class Portrait"
+      className="w-full h-[220px] object-cover"
+    />
+  </div>
+
+  {/* CTA */}
+  <motion.a
+    href="/registrations"
+    whileHover={{ scale: 1.04 }}
+    whileTap={{ scale: 0.97 }}
+    className="
+      col-span-1
+      md:col-span-3
+      h-[220px]
+      bg-orange-500
+      text-black
+      p-6
+      flex
+      flex-col
+      justify-between
+      touch-manipulation
+    "
+  >
+    <span className="text-xs font-semibold uppercase tracking-widest">
+      Explore
+      <br />
+      More Classes
+    </span>
+    <ArrowUpRight />
+  </motion.a>
+</motion.div>
+
+        </div>
       </div>
     </section>
   );
 }
-
-// rawr

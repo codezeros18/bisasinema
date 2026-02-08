@@ -16,19 +16,19 @@ const HomePage = () => {
   const [classFilter, setClassFilter] = useState('All');
 
   return (
-    <div className='bg-[#101010]'>
+    <div className='bg-black'>
       <LandingPage />
       <BisasinemaShowcase />
       <WorksBar />
       <WorksCarousel />
       
       {/* Meneruskan state dan fungsi ke komponen anak */}
-      <ClassBar 
+      {/* <ClassBar 
         activeFilter={classFilter}
         onFilterChange={setClassFilter}
-      />
+      /> */}
       <ClassShowcase 
-        activeFilter={classFilter}
+        // activeFilter={classFilter}
       />
       
       <MediaContentBar />
