@@ -7,4 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(), 
   ],
+  base: "/Bisasinema-Website-/", // 👈 INI PENTING: Agar halaman tidak blank putih saat dibuka
 })
